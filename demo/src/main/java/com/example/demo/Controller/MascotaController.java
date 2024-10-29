@@ -1,47 +1,45 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Model.Mascotas;
-import com.example.demo.Model.Propietario;
 import com.example.demo.interfaceService.IMascotaService;
 import com.example.demo.interfaceService.IPropietarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+@Controller
+@RequestMapping("/mascota")
 public class MascotaController {
+
     @Autowired
     private IMascotaService service;
+
+    @Autowired
+    private IPropietarioService servicee;
 
 
     @GetMapping("/listar")
     public String listarMascota(Model model){
 
         model.addAttribute("titulo","Spring DB");
-        model.addAttribute("cuerpo","LISTA DE PROPIETARIOS");
+        model.addAttribute("cuerpo","LISTA DE MASCOTAS");
 
         model.addAttribute("datos", service.listar());
-        return "index";
+        return "InicioMascota";
     }
 
-    @GetMapping("/nuevo")
-    public String formAgregarMascota(Model model){
-
-        model.addAttribute("titulo", "Nuevo");
-        model.addAttribute("cuerpo", "USUARIO NUEVO");
-
-        model.addAttribute("masc",new Mascotas());
-        return "nuevo";
+    @GetMapping("/nuevoP")
+    public String mostrarFormularioDeMascota(Model model) {
+        model.addAttribute("mas", new Mascotas());
+        model.addAttribute("propietario", servicee.listar());
+        return "mascotaNuevo";
     }
 
     @PostMapping("/guardar")
-    public String guardarMascota(@ModelAttribute Mascotas mas){
-
+    public String guardarMascota(@ModelAttribute Mascotas mas) {
         service.guardar(mas);
-
-        return "redirect:/listar";
+        return "redirect:/mascota/listar"; // Asegúrate de que la redirección es correcta
     }
 
 
@@ -50,9 +48,9 @@ public class MascotaController {
 
         // Optional<Propietario> est =  service.editar(id);
 
-        model.addAttribute("prop", service.editar(id));
+        model.addAttribute("mas", service.editar(id));
 
-        return "nuevo";
+        return "mascotaNuevo";
 
     }
 
@@ -61,7 +59,7 @@ public class MascotaController {
 
         service.eliminar(id);
 
-        return "redirect:/listar";
+        return "redirect:/mascota/listar";
 
     }
 }

@@ -2,9 +2,10 @@ package com.example.demo.Model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import org.apache.catalina.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -13,7 +14,7 @@ public class Mascotas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codigo;
+    private int id;
 
     private String nombre;
 
@@ -21,15 +22,16 @@ public class Mascotas {
 
     private String raza;
 
-    private Date fecha_nacimiento;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date fechaNacimiento;
 
-    private int propietario_id;
-
-
+    // Relación muchos a uno con la entidad Propietario
     @ManyToOne
-    @JoinColumn(name = "propietario_id")
+    @JoinColumn(name = "propietario_id", referencedColumnName = "id") // corregido para que coincida con 'codigo' en Propietario
     private Propietario propietario;
 
-
-
+    // Relación uno a muchos con Consulta
+   /* @OneToMany(mappedBy = "mascota")
+    private List<Consulta> consulta;*/
 }

@@ -8,37 +8,41 @@
 </head>
 <body>
 
-<h3 th:text="${cuerpo}"> </h3>
+<div class="content">
+  <h3 th:text="${cuerpo}"></h3>
 
-<table class="table">
-  <thead class="table-warning">
-  <tr>
-    <th>Código</th>
-    <th>Nombre</th>
-    <th>Especie</th>
-    <th>Raza</th>
-    <th>Fecha de Nacimiento</th>
-    <th>Propietario</th>
-    <th>Acciones</th>
-  </tr>
-  </thead>
-  <tbody th:each="mascota : ${datos}">
-  <tr>
-    <td th:text="${mascota.codigo}"></td>
-    <td th:text="${mascota.nombre}"></td>
-    <td th:text="${mascota.especie}"></td>
-    <td th:text="${mascota.raza}"></td>
-    <td th:text="${#dates.format(mascota.fechaNacimiento, 'yyyy-MM-dd')}"></td>
-    <td th:text="${mascota.propietario.nombre}"></td>
-    <td>
-      <a class="btn btn-warning" th:href="@{/mascota/editar/} + ${mascota.codigo}">Editar</a>
-      <a class="btn btn-danger" th:href="@{/mascota/eliminar/} + ${mascota.codigo}" onclick="return confirm('¿Estás seguro de eliminar?');">Eliminar</a>
-    </td>
-  </tr>
-  </tbody>
-</table>
-
-<a class="btn btn-success" th:href="@{/mascota/nuevoP}">Nueva Mascota</a>
-
+  <table class="table table-light table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Especie</th>
+      <th>Raza</th>
+      <th>Fecha de Nacimiento</th>
+      <th>Propietario</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody th:each="mascota : ${datos}">
+    <tr>
+      <td th:text="${mascota.id}"></td>
+      <td th:text="${mascota.nombre}"></td>
+      <td th:text="${mascota.especie}"></td>
+      <td th:text="${mascota.raza}"></td>
+      <td th:text="${mascota.fechaNacimiento}"></td>
+      <td th:text="${mascota.propietario.nombre}"></td>
+      <td>
+        <a class="btn btn-warning" th:href="@{/mascota/editar/{id}(id=${mascota.id})}">Editar</a>
+        <a class="btn btn-danger" th:href="@{/mascota/eliminar/{id}(id=${mascota.id})}"
+           onclick="return confirm('¿Está seguro de eliminar?');">Eliminar</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a class="btn btn-success" th:href="@{/propietario/nuevoP}">Nuevo Propietario</a>
+  <a class="btn btn-success" th:href="@{/mascota/nuevoP}">Nueva Mascota</a>
+  <a class="btn btn-success" th:href="@{/veterinario/nuevoP}">Nuevo Veterinario</a>
+  <a class="btn btn-success" th:href="@{/consulta/nuevoP}">Nueva Consulta</a>
+</div>
 </body>
 </html>

@@ -7,11 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IMascotaService {
-    public List<Propietario> listar();
+    public List<Mascotas> listar();
 
-    public void guardar(Mascotas mas);
+    public void guardar(Mascotas mascota);
 
-    public Optional<Propietario> editar(int id);
+
+    public Optional<Mascotas> editar(int id);
 
     public void eliminar (int id);
 }

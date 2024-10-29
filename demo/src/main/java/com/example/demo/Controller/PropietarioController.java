@@ -3,12 +3,14 @@ package com.example.demo.Controller;
 import com.example.demo.Model.Propietario;
 import com.example.demo.interfaceService.IPropietarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
+@Controller
+@RequestMapping("/propietario")
 public class PropietarioController {
 
     @Autowired
@@ -22,25 +24,21 @@ public class PropietarioController {
         model.addAttribute("cuerpo","LISTA DE PROPIETARIOS");
 
         model.addAttribute("datos", service.listar());
-        return "index";
+        return "propietario";
     }
 
-    @GetMapping("/nuevo")
+    @GetMapping("/nuevoP")
     public String formAgregarPropietarios(Model model){
-
         model.addAttribute("titulo", "Nuevo");
         model.addAttribute("cuerpo", "USUARIO NUEVO");
-
-        model.addAttribute("prop",new Propietario());
-        return "nuevo";
+        model.addAttribute("pro",new Propietario());
+        return "propietarioNuevo";
     }
 
     @PostMapping("/guardar")
     public String guardarEstudiante(@ModelAttribute Propietario pro){
-
         service.guardar(pro);
-
-        return "redirect:/listar";
+        return "redirect:/propietario/listar";
     }
 
 
@@ -49,9 +47,9 @@ public class PropietarioController {
 
         // Optional<Propietario> est =  service.editar(id);
 
-        model.addAttribute("prop", service.editar(id));
+        model.addAttribute("pro", service.editar(id));
 
-        return "nuevo";
+        return "propietarioNuevo";
 
     }
 
@@ -60,7 +58,7 @@ public class PropietarioController {
 
         service.eliminar(id);
 
-        return "redirect:/listar";
+        return "redirect:/propietario/listar";
 
     }
 }

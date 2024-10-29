@@ -13,7 +13,7 @@
 <table class="table">
     <thead class="table-warning">
     <tr>
-        <th>Codigo</th>
+        <th>Id</th>
         <th>Nombre</th>
         <th>Direccion</th>
         <th>Telefono</th>
@@ -21,16 +21,16 @@
     </tr>
     </thead>
 
-    <tbody th:each="propietario: ${datos}">
+    <tbody th:each="temList: ${datos}">
     <tr>
-        <td th:text="${propietario.codigo}"></td>
-        <td th:text="${propietario.nombre}"></td>
-        <td th:text="${propietario.direccion}"></td>
-        <td th:text="${propietario.telefono}"></td>
+        <td th:text="${temList.id}"></td>
+        <td th:text="${temList.nombre}"></td>
+        <td th:text="${temList.direccion}"></td>
+        <td th:text="${temList.telefono}"></td>
         <td>
 
-            <a class="btn btn-warning" th:href="@{/propietario/editar/} + ${temList.codigo}" >Editar</a>
-            <a class="btn btn-danger" th:href="@{/propietario/eliminar/} + ${temList.codigo}" onclick="return confirm('Estas seguro de eliminar');">Eliminar</a>
+            <a class="btn btn-warning" th:href="@{/propietario/editar/} + ${temList.id}" >Editar</a>
+            <a class="btn btn-danger" th:href="@{/propietario/eliminar/} + ${temList.id}" onclick="return confirm('Estas seguro de eliminar');">Eliminar</a>
 
         </td>
 
